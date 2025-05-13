@@ -1,42 +1,29 @@
-<!DOCTYPE html>
-<html lang="fr">
+<%- include ('partials/sidebar') %>
 
-<head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dashboard</title>
-    <link rel="stylesheet" href="/static/css/style.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-
-<body>
-    <div class="dashboard-layout">
-        <%- include ('partials/sidebar') %>
-
-            <main class="dashboard-content">
-                <h1>Accueil</h1>
-                <div class="dashboard-cards">
-                    <div class="dashboard-card">
-                        <div class="card-count">
-                            <%= recipesCount %> <i class="fa-solid fa-file-lines"></i>
-                        </div>
-                        <div class="card-label">Recettes</div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="card-count">
-                            <%= usersCount %> <i class="fa-solid fa-users"></i>
-                        </div>
-                        <div class="card-label">Utilisateurs</div>
-                    </div>
-                    <div class="dashboard-card">
-                        <div class="card-count">
-                            <%= mediasCount %> <i class="fa-solid fa-film"></i>
-                        </div>
-                        <div class="card-label">Médias</div>
-                    </div>
+    <main class="dashboard-content">
+        <h1>Accueil</h1>
+        <div class="dashboard-cards">
+            <div class="dashboard-card">
+                <div class="card-count">
+                    <%= recipesCount %> <i class="fa-solid fa-file-lines"></i>
                 </div>
-            </main>
+                <div class="card-label">Recettes</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-count">
+                    <%= usersCount %> <i class="fa-solid fa-users"></i>
+                </div>
+                <div class="card-label">Utilisateurs</div>
+            </div>
+            <div class="dashboard-card">
+                <div class="card-count">
+                    <%= mediasCount %> <i class="fa-solid fa-film"></i>
+                </div>
+                <div class="card-label">Médias</div>
+            </div>
+        </div>
+    </main>
     </div>
-</body>
+    </body>
 
-</html>
+    </html>

@@ -58,7 +58,7 @@ body {
   color: #fff;
 }
 
-/* Contenu principal */
+/* Dashboard */
 .dashboard-content {
   flex: 1;
   padding: 30px;
@@ -107,4 +107,53 @@ body {
 .card-label {
   margin-top: 8px;
   font-size: 14px;
+}
+
+/* User Page */
+
+.user-search {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 14px;
+  width: 200px;
+}
+
+.pagination-info {
+  font-size: 14px;
+  color: #555;
+}
+
+.pagination-controls i {
+  margin: 0 4px;
+  cursor: pointer;
+  color: #555;
+}
+
+.user-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.user-table th,
+.user-table td {
+  padding: 14px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #333;
+}
+
+.user-table td i.fa-user {
+  margin-right: 8px;
+  color: #999;
+}
+
+.user-delete-icon {
+  color: #e59338;
+  cursor: pointer;
+}
+
+.user-delete-icon:hover {
+  color: #c46500;
 }

@@ -1,7 +1,7 @@
 import express from "express";
 import sequelize from "./database/index";
 import ApiRouter from "./routes/apiRoutes";
-import backofficeRouter from "./routes/backoffice/dashboardRoutes";
+import backofficeRouter from "./routes/backoffice/backofficeRoutes";
 import config from "./utils/dotenv";
 import "./database/association";
 import bodyParser from "body-parser";

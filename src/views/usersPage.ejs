@@ -1,0 +1,42 @@
+<%- include ('partials/sidebar') %>
+
+    <main class="dashboard-content">
+        <h1>Utilisateurs</h1>
+
+        <table class="user-table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Rôle</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% users.forEach(user=> { %>
+                    <tr>
+                        <td>
+                            <i class="fa-solid fa-user"></i>
+                            <span>
+                                <%= user.username %>
+                            </span>
+                        </td>
+                        <td>
+                            <%= user.role.toUpperCase() %>
+                        </td>
+                        <td>
+                            <form method="POST" action="/backoffice/users/<%= user.id %>?_method=DELETE"
+                                onsubmit="return confirm('Supprimer cet utilisateur ?')">
+                                <button type="submit" class="user-delete-btn">
+                                    <i class="fa-solid fa-trash user-delete-icon"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </main>
+    </div>
+    </body>
+
+    </html>
