@@ -34,6 +34,7 @@ const CreateUsers = async () => {
 			username: "john_doe",
 			email: "john@doe.fr",
 			password: await argon2.hash("johnEstVraimentUnSuperPseudo"),
+			role: "admin",
 		},
 	];
 
