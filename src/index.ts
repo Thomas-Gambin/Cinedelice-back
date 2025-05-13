@@ -1,6 +1,7 @@
 import express from "express";
 import sequelize from "./database/index";
 import ApiRouter from "./routes/apiRoutes";
+import backofficeRouter from "./routes/backofficeRoutes";
 import config from "./utils/dotenv";
 import "./database/association";
 import bodyParser from "body-parser";
@@ -43,6 +44,11 @@ app.use(bodyParser.json());
 app.use(limiter);
 // Use the route for API
 app.use("/api", ApiRouter);
+// Use the route for backoffice
+app.set("view engine", "ejs");
+app.set("views", "./src/views");
+app.use(express.static("public"));
+app.use("/backoffice", backofficeRouter);
 
 // Use the joi validation for error
 const ContainerTypes = ["body", "query", "headers", "fields", "params"];
