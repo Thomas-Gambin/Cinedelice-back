@@ -45,7 +45,7 @@ Recipe.init(
 		},
 		authorId: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
+			allowNull: true,
 		},
 		mediaId: {
 			type: DataTypes.INTEGER,

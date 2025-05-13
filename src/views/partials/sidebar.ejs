@@ -14,15 +14,32 @@
 
         <aside class="sidebar">
             <div class="admin-info">
-                <img src="/static/avatar.png" alt="avatar">
+                <img src="/static/avatar.png" alt="avatar" />
                 <p>admin</p>
             </div>
             <nav class="nav">
-                <a class="active"><i class="fa-solid fa-chart-line"></i> Dashboard</a>
-                <a><i class="fa-solid fa-users"></i> Utilisateurs</a>
-                <a><i class="fa-solid fa-file-lines"></i> Recettes</a>
-                <a><i class="fa-solid fa-carrot"></i> Aliments</a>
-                <a><i class="fa-solid fa-film"></i> Médias</a>
-                <a><i class="fa-solid fa-table-cells"></i> Catégories de recettes</a>
+                <a href="/backoffice/dashboard"
+                    class="<%= currentPath.startsWith('/backoffice/dashboard') ? 'active' : '' %>">
+                    <i class="fa-solid fa-chart-line"></i> Dashboard
+                </a>
+                <a href="/backoffice/users" class="<%= currentPath.startsWith('/backoffice/users') ? 'active' : '' %>">
+                    <i class="fa-solid fa-users"></i> Utilisateurs
+                </a>
+                <a href="/backoffice/recipes"
+                    class="<%= currentPath.startsWith('/backoffice/recipes') ? 'active' : '' %>">
+                    <i class="fa-solid fa-file-lines"></i> Recettes
+                </a>
+                <a href="/backoffice/ingredients"
+                    class="<%= currentPath.startsWith('/backoffice/ingredients') ? 'active' : '' %>">
+                    <i class="fa-solid fa-carrot"></i> Aliments
+                </a>
+                <a href="/backoffice/medias"
+                    class="<%= currentPath.startsWith('/backoffice/medias') ? 'active' : '' %>">
+                    <i class="fa-solid fa-film"></i> Médias
+                </a>
+                <a href="/backoffice/categories"
+                    class="<%= currentPath.startsWith('/backoffice/categories') ? 'active' : '' %>">
+                    <i class="fa-solid fa-table-cells"></i> Catégories de recettes
+                </a>
             </nav>
         </aside>

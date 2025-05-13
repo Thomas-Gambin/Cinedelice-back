@@ -10,10 +10,12 @@ import User from "./models/user";
 Recipe.belongsTo(User, {
 	foreignKey: "authorId",
 	as: "Author",
+	onDelete: "SET NULL",
 });
 User.hasMany(Recipe, {
 	foreignKey: "authorId",
 	as: "CreatedRecipes",
+	onDelete: "SET NULL",
 });
 
 // A Recipe belongs to a Media (e.g., image) and a Media can be associated with many Recipes

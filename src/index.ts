@@ -9,6 +9,7 @@ import type { ExpressJoiError } from "express-joi-validation";
 import DotenvSchema from "./validators/dotenvValidator";
 import cors from "cors";
 import { limiter } from "./middlewares/rateLimitValidator";
+import { isActive } from "./middlewares/backoffice/isActive";
 
 // Validate the environment configuration
 const { error } = DotenvSchema.validate(process.env, {
@@ -45,6 +46,7 @@ app.use(limiter);
 // Use the route for API
 app.use("/api", ApiRouter);
 // Use the route for backoffice
+app.use(isActive);
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
 app.use(express.static("public"));

@@ -28,6 +28,8 @@ export default {
 
             await user.destroy();
 
+            res.redirect('/backoffice/users');
+
             res.status(200).json({ message: 'User deleted successfully' });
         } catch (error) {
             console.error('Error deleting user:', error);
