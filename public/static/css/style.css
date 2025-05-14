@@ -112,25 +112,6 @@ body {
 
 /* User Page */
 
-.user-search {
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 14px;
-  width: 200px;
-}
-
-.pagination-info {
-  font-size: 14px;
-  color: #555;
-}
-
-.pagination-controls i {
-  margin: 0 4px;
-  cursor: pointer;
-  color: #555;
-}
-
 .user-table {
   width: 100%;
   border-collapse: collapse;
@@ -158,3 +139,68 @@ body {
 .user-delete-icon:hover {
   color: #c46500;
 }
+
+.user-table th:last-child,
+.user-table td:last-child {
+  text-align: right;
+}
+
+/* Ingredient page */
+.ingredients-header {
+  display: flex;
+  justify-content: end;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.create-ingredient-btn {
+  background-color: #e59338;
+  border: none;
+  color: white;
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+.create-ingredient-btn:hover {
+  /* biome-ignore lint/correctness/noUnknownFunction: <explanation> */
+  background-color: darken(#e59338, 10%);
+}
+
+.ingredient-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.ingredient-table th,
+.ingredient-table td {
+  padding: 14px 10px;
+  text-align: left;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+  color: #333;
+}
+
+.ingredient-table td i {
+  cursor: pointer;
+  color: #e59338;
+  margin-right: 8px;
+  transition: color 0.2s;
+}
+
+.ingredient-table td i:hover {
+  color: #c46500;
+}
+
+.ingredient-table th:last-child,
+.ingredient-table td:last-child {
+  text-align: right;
+}
+

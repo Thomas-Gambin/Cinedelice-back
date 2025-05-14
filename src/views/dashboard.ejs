@@ -3,12 +3,6 @@
     <main class="dashboard-content">
         <h1>Accueil</h1>
         <div class="dashboard-cards">
-            <a href="" class="dashboard-card">
-                <div class="card-count">
-                    <%= recipesCount %> <i class="fa-solid fa-file-lines"></i>
-                </div>
-                <div class="card-label">Recettes</div>
-            </a>
             <a href="/backoffice/users" class="dashboard-card">
                 <div class="card-count">
                     <%= usersCount %> <i class="fa-solid fa-users"></i>
@@ -17,9 +11,27 @@
             </a>
             <a href="" class="dashboard-card">
                 <div class="card-count">
+                    <%= recipesCount %> <i class="fa-solid fa-file-lines"></i>
+                </div>
+                <div class="card-label">Recettes</div>
+            </a>
+            <a href="/backoffice/ingredients" class="dashboard-card">
+                <div class="card-count">
+                    <%= ingredientsCount %> <i class="fa-solid fa-carrot"></i>
+                </div>
+                <div class="card-label">Ingrédients</div>
+            </a>
+            <a href="" class="dashboard-card">
+                <div class="card-count">
                     <%= mediasCount %> <i class="fa-solid fa-film"></i>
                 </div>
                 <div class="card-label">Médias</div>
+            </a>
+            <a href="" class="dashboard-card">
+                <div class="card-count">
+                    <%= categoriesCount %> <i class="fa-solid fa-table-cells"></i>
+                </div>
+                <div class="card-label">Catégories</div>
             </a>
         </div>
     </main>

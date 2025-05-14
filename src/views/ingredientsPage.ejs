@@ -1,0 +1,36 @@
+<%- include ('partials/sidebar') %>
+
+    <main class="dashboard-content">
+        <h1>Ingredients</h1>
+        <div class="ingredients-header">
+            <button class="create-ingredient-btn">
+                <i class="fa-solid fa-plus"></i> Crée un ingrédent
+            </button>
+        </div>
+
+        <table class="ingredient-table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% ingredients.forEach((ingredient)=> { %>
+                    <tr>
+                        <td>
+                            <%= ingredient.name %>
+                        </td>
+                        <td>
+                            <i class="fa-solid fa-pen-to-square edit-icon"></i>
+                            <i class="fa-solid fa-trash delete-icon"></i>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </main>
+    </div>
+    </body>
+
+    </html>
