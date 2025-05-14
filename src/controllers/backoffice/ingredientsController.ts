@@ -51,5 +51,22 @@ export default {
             console.error('Error updating ingredient:', error);
             res.status(500).json({ error: 'Internal server error' });
         }
+    },
+
+    createIngredient: async (req: Request, res: Response) : Promise<void> => {
+        const { name } = req.body;
+        try {
+            if (!name) {
+                res.status(400).json({ error: 'Name is required' });
+                return;
+            }
+
+            await Ingredient.create({ name });
+            res.redirect('/backoffice/ingredients');
+            res.status(201).json({ message: 'Ingredient created successfully' });
+        } catch (error) {
+            console.error('Error creating ingredient:', error);
+            res.status(500).json({ error: 'Internal server error' });
+        }
     }
 } 

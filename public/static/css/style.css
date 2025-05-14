@@ -131,6 +131,14 @@ body {
   color: #999;
 }
 
+.user-delete-btn {
+  background: none;
+  border: none;
+  padding: 0;
+  margin: 0;
+  cursor: pointer;
+}
+
 .user-delete-icon {
   color: #e59338;
   cursor: pointer;
@@ -203,7 +211,7 @@ body {
 .ingredient-table td:last-child {
   text-align: right;
 }
-
+/* modal */
 .modal {
   position: fixed;
   z-index: 9999;
@@ -218,7 +226,6 @@ body {
   justify-content: center;
 }
 
-/* modal */
 .modal-content {
   background-color: #fff;
   padding: 20px;
