@@ -62,10 +62,12 @@ RecipeComposition.belongsTo(Recipe, {
 RecipeComposition.belongsTo(Ingredient, {
 	foreignKey: "ingredientId",
 	as: "Ingredient",
+	onDelete: "SET NULL",
 });
 Ingredient.hasMany(RecipeComposition, {
 	foreignKey: "ingredientId",
 	as: "Compositions",
+	onDelete: "SET NULL",
 });
 
 export {

@@ -4,5 +4,7 @@ import ingredientsController from '../../controllers/backoffice/ingredientsContr
 const ingredientsRouter = express.Router();
 
 ingredientsRouter.get('/', ingredientsController.getAllIngredients);
+ingredientsRouter.post('/:id', ingredientsController.deleteIngredient);
+ingredientsRouter.post('/:id/edit', ingredientsController.updateIngredient);
 
 export default ingredientsRouter;

@@ -28,7 +28,7 @@ RecipeComposition.init(
 		},
 		ingredientId: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
+			allowNull: true,
 		},
 		quantity: {
 			type: DataTypes.STRING,
