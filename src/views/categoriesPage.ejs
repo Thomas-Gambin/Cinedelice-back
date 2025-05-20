@@ -1,0 +1,107 @@
+<%- include ('partials/sidebar') %>
+
+    <main class="dashboard-content">
+        <h1>Catégories de recettes</h1>
+
+        <div class="ingredients-header">
+            <button class="create-ingredient-btn" id="openCreateModal">
+                <i class="fa-solid fa-plus"></i> Créer une catégorie
+            </button>
+        </div>
+
+        <table class="ingredient-table">
+            <thead>
+                <tr>
+                    <th>Nom</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% categories.forEach((category)=> { %>
+                    <tr>
+                        <td>
+                            <%= category.name %>
+                        </td>
+                        <td>
+                            <i class="fa-solid fa-pen-to-square edit-icon" data-id="<%= category.id %>"
+                                data-name="<%= category.name %>" title="Modifier" style="cursor: pointer;"></i>
+
+                            <form action="/backoffice/categories/<%= category.id %>?_method=DELETE" method="POST"
+                                onsubmit="return confirm('Supprimer cette catégorie ?')" style="display: inline;">
+                                <button type="submit" class="delete-icon" style="background: none; border: none;">
+                                    <i class="fa-solid fa-trash" title="Supprimer"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Modale édition -->
+    <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Modifier la catégorie</h2>
+            <form id="editForm" method="POST">
+                <input type="text" name="name" id="editCategoryName" required placeholder="Nom de la catégorie" />
+                <button type="submit" class="create-ingredient-btn">
+                    <i class="fa-solid fa-check"></i> Enregistrer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Modale création -->
+    <div id="createModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-create">&times;</span>
+            <h2>Créer une catégorie</h2>
+            <form action="/backoffice/categories/create" method="POST">
+                <input type="text" name="name" required placeholder="Nom de la catégorie" />
+                <button type="submit" class="create-ingredient-btn">
+                    <i class="fa-solid fa-check"></i> Créer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Édition
+        const editModal = document.getElementById("editModal");
+        const closeEdit = document.querySelector(".modal .close");
+        const editForm = document.getElementById("editForm");
+        const editInput = document.getElementById("editCategoryName");
+
+        document.querySelectorAll(".edit-icon").forEach(icon => {
+            icon.addEventListener("click", () => {
+                const id = icon.dataset.id;
+                const name = icon.dataset.name;
+                editInput.value = name;
+                editForm.action = `/backoffice/categories/${id}/edit`;
+                editModal.style.display = "flex";
+            });
+        });
+
+        closeEdit.onclick = () => editModal.style.display = "none";
+        window.onclick = (e) => {
+            if (e.target === editModal) editModal.style.display = "none";
+        };
+
+        // Création
+        const createModal = document.getElementById("createModal");
+        const openCreate = document.getElementById("openCreateModal");
+        const closeCreate = document.querySelector(".close-create");
+
+        openCreate.onclick = () => createModal.style.display = "flex";
+        closeCreate.onclick = () => createModal.style.display = "none";
+        window.onclick = (e) => {
+            if (e.target === createModal) createModal.style.display = "none";
+        };
+    </script>
+
+    </div>
+    </body>
+
+    </html>
