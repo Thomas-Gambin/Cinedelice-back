@@ -4,5 +4,6 @@ import categoryController from "../../controllers/backoffice/categoriesControlle
 const categoryRouter = express.Router();
 
 categoryRouter.get("/", categoryController.getAllCategories);
+categoryRouter.post("/create", categoryController.createCategory);
 
 export default categoryRouter;

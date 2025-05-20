@@ -14,4 +14,14 @@ export default {
         }
     },
 
+    createCategory: async (req: Request, res: Response) => {
+        try {
+            const { name } = req.body;
+            await RecipeCategory.create({ name });
+            res.redirect("/backoffice/categories");
+        } catch (error) {
+            console.error("Erreur lors de la création de la catégorie :", error);
+            res.status(500).json({ error: "Erreur serveur" });
+        }
+    },
 }
