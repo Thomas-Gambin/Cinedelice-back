@@ -49,11 +49,11 @@ Recipe.init(
 		},
 		mediaId: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
+			allowNull: true,
 		},
 		categoryId: {
 			type: DataTypes.INTEGER,
-			allowNull: false,
+			allowNull: true,
 		},
 		actif: {
 			type: DataTypes.BOOLEAN,

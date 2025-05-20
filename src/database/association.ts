@@ -22,40 +22,48 @@ User.hasMany(Recipe, {
 Recipe.belongsTo(Media, {
 	foreignKey: "mediaId",
 	as: "Media",
+	onDelete: "SET NULL",
 });
 Media.hasMany(Recipe, {
 	foreignKey: "mediaId",
 	as: "Recipes",
+	onDelete: "SET NULL",
 });
 
 // A Recipe belongs to a RecipeCategory and a RecipeCategory can have many Recipes
 Recipe.belongsTo(RecipeCategory, {
 	foreignKey: "categoryId",
 	as: "Category",
+	onDelete: "SET NULL",
 });
 RecipeCategory.hasMany(Recipe, {
 	foreignKey: "categoryId",
 	as: "Recipes",
+	onDelete: "SET NULL",
 });
 
 // A Recipe has many RecipeSteps and a RecipeStep belongs to a Recipe
 Recipe.hasMany(RecipeStep, {
 	foreignKey: "recipeId",
 	as: "Steps",
+	onDelete: "CASCADE",
 });
 RecipeStep.belongsTo(Recipe, {
 	foreignKey: "recipeId",
 	as: "Recipe",
+	onDelete: "CASCADE",
 });
 
 // A Recipe has many RecipeCompositions and a RecipeComposition belongs to a Recipe
 Recipe.hasMany(RecipeComposition, {
 	foreignKey: "recipeId",
 	as: "Compositions",
+	onDelete: "CASCADE",
 });
 RecipeComposition.belongsTo(Recipe, {
 	foreignKey: "recipeId",
 	as: "Recipe",
+	onDelete: "CASCADE",
 });
 
 // A RecipeComposition belongs to an Ingredient and an Ingredient can be part of many RecipeCompositions

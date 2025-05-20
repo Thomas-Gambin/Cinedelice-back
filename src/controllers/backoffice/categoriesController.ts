@@ -24,4 +24,42 @@ export default {
             res.status(500).json({ error: "Erreur serveur" });
         }
     },
+
+    updateCategory: async (req: Request, res: Response) : Promise<void> => {
+        const { id } = req.params;
+        const { name } = req.body;
+        try {
+            const category = await RecipeCategory.findByPk(id);
+            if (!category) {
+                res.status(404).json({ error: "Catégorie non trouvée" });
+                return;
+            }
+            category.name = name;
+            await category.save();
+            
+            res.redirect("/backoffice/categories");
+        } catch (error) {
+            console.error("Erreur lors de la création de la catégorie :", error);
+            res.status(500).json({ error: "Erreur serveur" });
+        }
+    },
+
+    deleteCategory: async (req: Request, res: Response) : Promise<void> => {
+        const { id } = req.params;
+        try {
+            const category = await RecipeCategory.findByPk(id);
+            if (!category) {
+                res.status(404).json({ error: "Catégorie non trouvée" });
+                return;
+            }
+            await category.destroy();
+            
+            res.redirect("/backoffice/categories");
+
+            res.status(200).json({ message: "Catégorie supprimée avec succès" });
+        } catch (error) {
+            console.error("Erreur lors de la suppression de la catégorie :", error);
+            res.status(500).json({ error: "Erreur serveur" });
+        }
+    },
 }
