@@ -5,7 +5,7 @@
 
         <div class="ingredients-header">
             <button class="create-ingredient-btn" id="openCreateModal">
-                <i class="fa-solid fa-plus"></i> Crée une recette
+                <i class="fa-solid fa-plus"></i> Créer une recette
             </button>
         </div>
 
@@ -14,21 +14,47 @@
                 <tr>
                     <th>Nom</th>
                     <th>Catégorie</th>
+                    <th>Image de couverture</th>
+                    <th>Ingrédients</th>
+                    <th>Étapes</th>
                     <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
-                <% recipes.forEach((recipe)=> { %>
+                <% recipes.forEach(recipe=> { %>
                     <tr>
                         <td>
                             <%= recipe.name %>
                         </td>
                         <td>
-                            <%= recipe.Category ? recipe.Category.name : '—' %>
+                            <%= recipe.Category?.name || "Non catégorisé" %>
+                        </td>
+                        <td><a href="<%= recipe.coverImg %>" target="_blank">
+                                <%= recipe.coverImg %>
+                            </a></td>
+                        <td>
+                        <td>
+                            <ul>
+                                <% recipe.Compositions.forEach(comp=> { %>
+                                    <li>
+                                        <%= comp.quantity %>
+                                            <%= comp.unit %> de <%= comp.Ingredient?.name || "Ingrédient inconnu" %>
+                                    </li>
+                                    <% }) %>
+                            </ul>
                         </td>
                         <td>
+                            <ol>
+                                <% recipe.Steps.sort((a, b)=> a.order - b.order).forEach(step => { %>
+                                    <li>
+                                        <%= step.description %>
+                                    </li>
+                                    <% }) %>
+                            </ol>
+                        </td>
+                        <td class="actions">
                             <i class="fa-solid fa-pen-to-square edit-icon" data-id="<%= recipe.id %>"
-                                data-name="<%= recipe.name %>" style="cursor: pointer;"></i>
+                                data-name="<%= recipe.name %>" title="Modifier"></i>
 
                             <form action="/backoffice/recipes/<%= recipe.id %>?_method=DELETE" method="POST"
                                 onsubmit="return confirm('Supprimer cette recette ?')" style="display: inline;">
@@ -44,13 +70,14 @@
         </table>
     </main>
 
-    <!-- Modale Création -->
+    <!-- Create Modal -->
     <div id="createModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-create">&times;</span>
             <h2>Créer une recette</h2>
             <form action="/backoffice/recipes/create" method="POST">
                 <input type="text" name="name" required placeholder="Nom de la recette" />
+                <textarea name="description" required placeholder="Description de la recette"></textarea>
                 <select name="categoryId" required>
                     <% categories.forEach(c=> { %>
                         <option value="<%= c.id %>">
@@ -58,6 +85,25 @@
                         </option>
                         <% }) %>
                 </select>
+
+                <h4>Ingrédients</h4>
+                <div id="ingredientFields">
+                    <div class="ingredient-group">
+                        <input type="text" name="ingredients[0][name]" placeholder="Nom de l'ingrédient" required />
+                        <input type="text" name="ingredients[0][quantity]" placeholder="Quantité" required />
+                        <input type="text" name="ingredients[0][unit]" placeholder="Unité" required />
+                    </div>
+                </div>
+                <button type="button" onclick="addIngredientField()">+ Ajouter un ingrédient</button>
+
+                <h4>Étapes</h4>
+                <div id="stepFields">
+                    <div class="step-group">
+                        <textarea name="steps[0][description]" placeholder="Description de l'étape" required></textarea>
+                    </div>
+                </div>
+                <button type="button" onclick="addStepField()">+ Ajouter une étape</button>
+
                 <button type="submit" class="create-ingredient-btn">
                     <i class="fa-solid fa-check"></i> Créer
                 </button>
@@ -65,14 +111,29 @@
         </div>
     </div>
 
-    <!-- Modale Édition -->
+    <!-- Edit modal -->
     <div id="editModal" class="modal" style="display: none;">
         <div class="modal-content">
-            <span class="close">&times;</span>
+            <span class="close-edit">&times;</span>
             <h2>Modifier la recette</h2>
             <form id="editForm" method="POST">
-                <input type="text" name="name" id="editRecipeName" required />
-                <button type="submit" class="create-ingredient-btn">
+                <input type="text" name="name" id="editRecipeName" required placeholder="Nom de la recette" />
+                <textarea name="description" id="editRecipeDescription" required
+                    placeholder="Description de la recette"></textarea>
+                <select name="categoryId" id="editRecipeCategory" required>
+                    <% categories.forEach(c=> { %>
+                        <option value="<%= c.id %>">
+                            <%= c.name %>
+                        </option>
+                        <% }) %>
+                </select>
+                <h3>Ingrédients</h3>
+                <div id="editIngredientsContainer"></div>
+                <button type="button" onclick="addEditIngredient()">+ Ajouter un ingrédient</button>
+                <h3>Étapes</h3>
+                <div id="editStepsContainer"></div>
+                <button type="button" onclick="addEditStep()">+ Ajouter une étape</button>
+                <button type="submit" class="create-ingredient-btn" style="margin-top: 20px;">
                     <i class="fa-solid fa-check"></i> Enregistrer
                 </button>
             </form>
@@ -104,6 +165,32 @@
 
         closeEdit.onclick = () => editModal.style.display = "none";
         window.onclick = e => { if (e.target === editModal) editModal.style.display = "none"; };
+
+        let ingredientIndex = 1;
+        function addIngredientField() {
+            const container = document.getElementById("ingredientFields");
+            const div = document.createElement("div");
+            div.classList.add("ingredient-group");
+            div.innerHTML = `
+            <input type="text" name="ingredients[${ingredientIndex}][name]" placeholder="Nom de l'ingrédient" required />
+            <input type="text" name="ingredients[${ingredientIndex}][quantity]" placeholder="Quantité" required />
+            <input type="text" name="ingredients[${ingredientIndex}][unit]" placeholder="Unité" required />
+        `;
+            container.appendChild(div);
+            ingredientIndex++;
+        }
+
+        let stepIndex = 1;
+        function addStepField() {
+            const container = document.getElementById("stepFields");
+            const div = document.createElement("div");
+            div.classList.add("step-group");
+            div.innerHTML = `
+            <textarea name="steps[${stepIndex}][description]" placeholder="Description de l'étape" required></textarea>
+        `;
+            container.appendChild(div);
+            stepIndex++;
+        }
     </script>
     </div>
     </body>
