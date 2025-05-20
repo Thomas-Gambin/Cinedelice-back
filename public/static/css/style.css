@@ -235,6 +235,23 @@ body {
   position: relative;
 }
 
+.modal-content form input,
+.modal-content form textarea {
+  display: block;
+  width: 100%;
+  margin-bottom: 1rem;
+  padding: 10px;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+.modal-content form textarea {
+  resize: vertical;
+  min-height: 100px;
+}
+
 .modal .close {
   position: absolute;
   right: 15px;
@@ -248,5 +265,6 @@ body {
 .modal .create-ingredient-btn{
   margin-top: 20px;
 }
+
 
 

@@ -1,0 +1,117 @@
+<%- include ('partials/sidebar') %>
+
+    <main class="dashboard-content">
+        <h1>Médias</h1>
+
+        <div class="ingredients-header">
+            <button class="create-ingredient-btn" id="openCreateModal">
+                <i class="fa-solid fa-plus"></i> Créer un média
+            </button>
+        </div>
+
+        <table class="ingredient-table">
+            <thead>
+                <tr>
+                    <th>Titre</th>
+                    <th>Image de couverture</th>
+                    <th>Anecdote</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% medias.forEach((media)=> { %>
+                    <tr>
+                        <td>
+                            <%= media.title %>
+                        </td>
+                        <td><a href="<%= media.coverImage %>" target="_blank">
+                                <%= media.coverImage %>
+                            </a></td>
+                        <td>
+                            <%= media.anecdote %>
+                        </td>
+                        <td>
+                            <i class="fa-solid fa-pen-to-square edit-icon" data-id="<%= media.id %>"
+                                data-title="<%= media.title %>" data-img="<%= media.coverImage %>"
+                                data-anecdote="<%= media.anecdote %>" style="cursor: pointer;" title="Modifier"></i>
+
+                            <form action="/backoffice/medias/<%= media.id %>?_method=DELETE" method="POST"
+                                onsubmit="return confirm('Supprimer ce média ?')" style="display: inline;">
+                                <button type="submit" class="delete-icon" title="Supprimer"
+                                    style="background: none; border: none;">
+                                    <i class="fa-solid fa-trash"></i>
+                                </button>
+                            </form>
+                        </td>
+                    </tr>
+                    <% }) %>
+            </tbody>
+        </table>
+    </main>
+
+    <!-- Edit modale -->
+    <div id="editModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close">&times;</span>
+            <h2>Modifier le média</h2>
+            <form id="editForm" method="POST">
+                <input type="text" name="title" id="editMediaTitle" required placeholder="Titre du média" />
+                <input type="text" name="coverImage" id="editMediaImage" required placeholder="URL de l'image" />
+                <textarea name="anecdote" id="editMediaAnecdote" required placeholder="Anecdote"></textarea>
+                <button type="submit" class="create-ingredient-btn">
+                    <i class="fa-solid fa-check"></i> Enregistrer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Create modale -->
+    <div id="createModal" class="modal" style="display: none;">
+        <div class="modal-content">
+            <span class="close-create">&times;</span>
+            <h2>Créer un média</h2>
+            <form action="/backoffice/medias/create" method="POST">
+                <input type="text" name="title" required placeholder="Titre du média" />
+                <input type="text" name="coverImage" required placeholder="URL de l'image" />
+                <textarea name="anecdote" required placeholder="Anecdote"></textarea>
+                <button type="submit" class="create-ingredient-btn">
+                    <i class="fa-solid fa-check"></i> Créer
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const editModal = document.getElementById("editModal");
+        const closeEdit = document.querySelector(".modal .close");
+        const editForm = document.getElementById("editForm");
+        const titleInput = document.getElementById("editMediaTitle");
+        const imgInput = document.getElementById("editMediaImage");
+        const anecdoteInput = document.getElementById("editMediaAnecdote");
+
+        document.querySelectorAll(".edit-icon").forEach(button => {
+            button.addEventListener("click", () => {
+                const id = button.dataset.id;
+                titleInput.value = button.dataset.title;
+                imgInput.value = button.dataset.img;
+                anecdoteInput.value = button.dataset.anecdote;
+                editForm.action = `/backoffice/medias/${id}/edit`;
+                editModal.style.display = "flex";
+            });
+        });
+
+        closeEdit.onclick = () => editModal.style.display = "none";
+        window.onclick = (e) => { if (e.target === editModal) editModal.style.display = "none"; };
+
+        const createModal = document.getElementById("createModal");
+        const openCreate = document.getElementById("openCreateModal");
+        const closeCreate = document.querySelector(".close-create");
+
+        openCreate.onclick = () => createModal.style.display = "flex";
+        closeCreate.onclick = () => createModal.style.display = "none";
+        window.onclick = (e) => { if (e.target === createModal) createModal.style.display = "none"; };
+    </script>
+    </div>
+    </body>
+
+    </html>
