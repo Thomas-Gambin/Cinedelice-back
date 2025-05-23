@@ -69,7 +69,7 @@
         </table>
     </main>
 
-    <!-- Modale de création -->
+    <!-- Creat modal -->
     <div id="createModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-create">&times;</span>
@@ -119,7 +119,7 @@
         <div id="ingredientsData" data-ingredients='<%- JSON.stringify(ingredients).replace(/' /g, "&#39;" ) %>'></div>
     </div>
 
-    <!-- Modale d'édition -->
+    <!-- Edit modal -->
     <div id="editModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-edit">&times;</span>
@@ -152,7 +152,6 @@
 
     <script>
 
-        // Creat modal
         const createModal = document.getElementById("createModal");
         const openCreate = document.getElementById("openCreateModal");
         const closeCreate = document.querySelector(".close-create");
@@ -211,7 +210,6 @@
             stepIndex++;
         }
 
-        // Edit modal
         const editModal = document.getElementById("editModal");
         const closeEdit = document.querySelector(".close-edit");
         const nameInput = document.getElementById("editRecipeName");
