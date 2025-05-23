@@ -144,7 +144,7 @@ This document describes the available endpoints for the Cinedelices backend API.
 - ✅ = Authentication required (JWT)
 - ❌ = No authentication required
 
-# Backoffice Routes Documentation - Cinedelice
+# Backoffice Routes Documentation
 
 ## Base URL
 All routes are prefixed with: `/backoffice`
