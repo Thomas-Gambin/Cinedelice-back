@@ -33,12 +33,11 @@
                                 <%= recipe.coverImg %>
                             </a></td>
                         <td>
-                        <td>
                             <ul>
                                 <% recipe.Compositions.forEach(comp=> { %>
                                     <li>
                                         <%= comp.quantity %>
-                                            <%= comp.unit %> de <%= comp.Ingredient?.name || "Ingrédient inconnu" %>
+                                            <%= comp.unit %> de <%= comp.Ingredient?.name || "?" %>
                                     </li>
                                     <% }) %>
                             </ul>
@@ -52,7 +51,7 @@
                                     <% }) %>
                             </ol>
                         </td>
-                        <td class="actions">
+                        <td>
                             <i class="fa-solid fa-pen-to-square edit-icon" data-id="<%= recipe.id %>"
                                 data-name="<%= recipe.name %>" title="Modifier"></i>
 
@@ -70,7 +69,7 @@
         </table>
     </main>
 
-    <!-- Create Modal -->
+    <!-- Modale de création -->
     <div id="createModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-create">&times;</span>
@@ -78,10 +77,11 @@
             <form action="/backoffice/recipes/create" method="POST">
                 <input type="text" name="name" required placeholder="Nom de la recette" />
                 <textarea name="description" required placeholder="Description de la recette"></textarea>
+                <input type="text" name="coverImg" required placeholder="URL de l'image de couverture" />
                 <select name="categoryId" required>
-                    <% categories.forEach(c=> { %>
-                        <option value="<%= c.id %>">
-                            <%= c.name %>
+                    <% categories.forEach(category=> { %>
+                        <option value="<%= category.id %>">
+                            <%= category.name %>
                         </option>
                         <% }) %>
                 </select>
@@ -89,9 +89,16 @@
                 <h4>Ingrédients</h4>
                 <div id="ingredientFields">
                     <div class="ingredient-group">
-                        <input type="text" name="ingredients[0][name]" placeholder="Nom de l'ingrédient" required />
-                        <input type="text" name="ingredients[0][quantity]" placeholder="Quantité" required />
-                        <input type="text" name="ingredients[0][unit]" placeholder="Unité" required />
+                        <select name="compositions[0][ingredientId]" required>
+                            <option value="">-- Sélectionner un ingrédient --</option>
+                            <% ingredients.forEach(ingredient=> { %>
+                                <option value="<%= ingredient.id %>">
+                                    <%= ingredient.name %>
+                                </option>
+                                <% }) %>
+                        </select>
+                        <input type="text" name="compositions[0][quantity]" placeholder="Quantité" required />
+                        <input type="text" name="compositions[0][unit]" placeholder="Unité" required />
                     </div>
                 </div>
                 <button type="button" onclick="addIngredientField()">+ Ajouter un ingrédient</button>
@@ -104,55 +111,111 @@
                 </div>
                 <button type="button" onclick="addStepField()">+ Ajouter une étape</button>
 
-                <button type="submit" class="create-ingredient-btn">
+                <button type="submit" class="create-ingredient-btn" style="margin-top: 20px;">
                     <i class="fa-solid fa-check"></i> Créer
                 </button>
             </form>
         </div>
+        <div id="ingredientsData" data-ingredients='<%- JSON.stringify(ingredients).replace(/' /g, "&#39;" ) %>'></div>
     </div>
 
-    <!-- Edit modal -->
+    <!-- Modale d'édition -->
     <div id="editModal" class="modal" style="display: none;">
         <div class="modal-content">
             <span class="close-edit">&times;</span>
             <h2>Modifier la recette</h2>
             <form id="editForm" method="POST">
                 <input type="text" name="name" id="editRecipeName" required placeholder="Nom de la recette" />
-                <textarea name="description" id="editRecipeDescription" required
-                    placeholder="Description de la recette"></textarea>
+                <textarea name="description" id="editRecipeDescription" required placeholder="Description"></textarea>
+                <input type="text" name="coverImg" id="editRecipeImage" required placeholder="Image de couverture" />
                 <select name="categoryId" id="editRecipeCategory" required>
-                    <% categories.forEach(c=> { %>
-                        <option value="<%= c.id %>">
-                            <%= c.name %>
+                    <% categories.forEach(category=> { %>
+                        <option value="<%= category.id %>">
+                            <%= category.name %>
                         </option>
                         <% }) %>
                 </select>
-                <h3>Ingrédients</h3>
+
                 <div id="editIngredientsContainer"></div>
                 <button type="button" onclick="addEditIngredient()">+ Ajouter un ingrédient</button>
-                <h3>Étapes</h3>
+
                 <div id="editStepsContainer"></div>
                 <button type="button" onclick="addEditStep()">+ Ajouter une étape</button>
+
                 <button type="submit" class="create-ingredient-btn" style="margin-top: 20px;">
                     <i class="fa-solid fa-check"></i> Enregistrer
                 </button>
             </form>
         </div>
+        <div id="ingredientsData" data-ingredients='<%- JSON.stringify(ingredients).replace(/' /g, "&#39;" ) %>'></div>
     </div>
 
     <script>
+
+        // Creat modal
         const createModal = document.getElementById("createModal");
         const openCreate = document.getElementById("openCreateModal");
         const closeCreate = document.querySelector(".close-create");
-
         openCreate.onclick = () => createModal.style.display = "flex";
         closeCreate.onclick = () => createModal.style.display = "none";
         window.onclick = e => { if (e.target === createModal) createModal.style.display = "none"; };
+        const ingredientsJSON = document.getElementById("ingredientsData").dataset.ingredients;
+        const ingredientsList = JSON.parse(ingredientsJSON);
 
+        let ingredientIndex = 1;
+        function addIngredientField() {
+            const container = document.getElementById("ingredientFields");
+            const div = document.createElement("div");
+            div.classList.add("ingredient-group");
+
+            const select = document.createElement("select");
+            select.name = `compositions[${ingredientIndex}][ingredientId]`;
+            select.required = true;
+
+            const defaultOption = document.createElement("option");
+            defaultOption.value = "";
+            defaultOption.textContent = "-- Sélectionner un ingrédient --";
+            select.appendChild(defaultOption);
+
+            ingredientsList.forEach(ing => {
+                const opt = document.createElement("option");
+                opt.value = ing.id;
+                opt.textContent = ing.name;
+                select.appendChild(opt);
+            });
+
+            const quantity = document.createElement("input");
+            quantity.name = `compositions[${ingredientIndex}][quantity]`;
+            quantity.placeholder = "Quantité";
+            quantity.required = true;
+
+            const unit = document.createElement("input");
+            unit.name = `compositions[${ingredientIndex}][unit]`;
+            unit.placeholder = "Unité";
+            unit.required = true;
+
+            div.appendChild(select);
+            div.appendChild(quantity);
+            div.appendChild(unit);
+            container.appendChild(div);
+            ingredientIndex++;
+        }
+
+        let stepIndex = 1;
+        function addStepField() {
+            const container = document.getElementById("stepFields");
+            const div = document.createElement("div");
+            div.classList.add("step-group");
+            div.innerHTML = `<textarea name="steps[${stepIndex}][description]" placeholder="Description" required></textarea>`;
+            container.appendChild(div);
+            stepIndex++;
+        }
+
+        // Edit modal
         const editModal = document.getElementById("editModal");
-        const closeEdit = document.querySelector(".modal .close");
-        const editForm = document.getElementById("editForm");
+        const closeEdit = document.querySelector(".close-edit");
         const nameInput = document.getElementById("editRecipeName");
+        const editForm = document.getElementById("editForm");
 
         document.querySelectorAll(".edit-icon").forEach(button => {
             button.onclick = () => {
@@ -166,30 +229,27 @@
         closeEdit.onclick = () => editModal.style.display = "none";
         window.onclick = e => { if (e.target === editModal) editModal.style.display = "none"; };
 
-        let ingredientIndex = 1;
-        function addIngredientField() {
-            const container = document.getElementById("ingredientFields");
+        function addEditIngredient() {
+            const container = document.getElementById("editIngredientsContainer");
             const div = document.createElement("div");
             div.classList.add("ingredient-group");
             div.innerHTML = `
-            <input type="text" name="ingredients[${ingredientIndex}][name]" placeholder="Nom de l'ingrédient" required />
-            <input type="text" name="ingredients[${ingredientIndex}][quantity]" placeholder="Quantité" required />
-            <input type="text" name="ingredients[${ingredientIndex}][unit]" placeholder="Unité" required />
+            <select name="compositions[][ingredientId]" required>
+                <option value="">-- Sélectionner un ingrédient --</option>
+                ${ingredientsList.map(i => `<option value="${i.id}">${i.name}</option>`).join("")}
+            </select>
+            <input type="text" name="compositions[][quantity]" placeholder="Quantité" required />
+            <input type="text" name="compositions[][unit]" placeholder="Unité" required />
         `;
             container.appendChild(div);
-            ingredientIndex++;
         }
 
-        let stepIndex = 1;
-        function addStepField() {
-            const container = document.getElementById("stepFields");
+        function addEditStep() {
+            const container = document.getElementById("editStepsContainer");
             const div = document.createElement("div");
             div.classList.add("step-group");
-            div.innerHTML = `
-            <textarea name="steps[${stepIndex}][description]" placeholder="Description de l'étape" required></textarea>
-        `;
+            div.innerHTML = `<textarea name="steps[][description]" placeholder="Description" required></textarea>`;
             container.appendChild(div);
-            stepIndex++;
         }
     </script>
     </div>
