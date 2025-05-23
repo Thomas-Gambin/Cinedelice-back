@@ -147,6 +147,9 @@ This document describes the available endpoints for the Cinedelices backend API.
 # Backoffice Routes Documentation
 
 ## Base URL
+
+The main page of the backoffice is `/backoffice/dashboard`
+
 All routes are prefixed with: `/backoffice`
 
 ---
