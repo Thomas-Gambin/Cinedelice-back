@@ -1,96 +1,145 @@
-# Cinedelices Backend
+# Cinedelices
 
-API backend pour le projet Cinedelices, une plateforme dédiée au cinéma et à la gastronomie.
+**Cinedelices** is a group capstone project completed at the end of our training program. Our mission was to create a website where users could browse and create recipes inspired by pop culture (movies, TV series, anime/manga, video games, literature).
 
-## Prérequis
+---
 
-- [Node.js](https://nodejs.org/) (version recommandée : >=18.x)
-- [PNPM](https://pnpm.io/) (version 10.7.1 ou supérieure)
-- [Docker](https://www.docker.com/) et [Docker Compose](https://docs.docker.com/compose/) (pour l'environnement de développement et de production)
-- [MariaDB](https://mariadb.org/) (si exécution locale sans Docker)
+## Cinedelices Backend
+
+Backend API and Back Office for the Cinedelices project, a platform dedicated to cinema and gastronomy.
+
+Frontend repo link: [https://github.com/Thomas-Gambin/Cinedelice-back](https://github.com/Thomas-Gambin/Cinedelice-back)
+
+---
+
+## Prerequisites
+
+- Node.js (recommended version: >=18.x)  
+- PNPM (version 10.7.1 or higher)  
+- Docker and Docker Compose (for development and production environments)  
+- MariaDB (if running locally without Docker)
+- Cloudinary account (if you want to add picture at your recipe)
+- Mailersend account (if you want to create account for testing the register/login method)
+
+---
 
 ## Installation
 
-1. Clonez le dépôt :
-   ```bash
-   git clone https://github.com/O-clock-Sigyn/projet-cinedelices.git
-   cd projet-cinedelices
-   ```
+### Clone the repository:
 
-2. Installez les dépendances :
-   ```bash
-   pnpm install
-   ```
+```bash
+git clone git@github.com:Thomas-Gambin/Cinedelice-back.git
+```
 
-3. Créez un fichier `.env` à la racine du projet basé sur l'exemple suivant :
-   ```
-   DATABASE_HOST=localhost
-   DATABASE_USER=root
-   DATABASE_PASSWORD=cinedelice
-   DATABASE_NAME=cinedelice
-   DATABASE_PORT=3306
+### Install dependencies:
 
-   CLOUDINARY_NAME=
-   CLOUDINARY_API_KEY=
-   CLOUDINARY_API_SECRET=
+```bash
+pnpm install
+```
 
-   PORT=3000
+### Create a `.env` file at the root of the project based on the following example:
 
-   JWT_SECRET=votre_secret_jwt_tres_securise
-   JWT_REFRESH_SECRET=votre_secret_refresh_tres_securise
+```ini
+DATABASE_HOST=localhost
+DATABASE_USER=root
+DATABASE_PASSWORD=cinedelice
+DATABASE_NAME=cinedelice
+DATABASE_PORT=3306
 
-   MAIL_APIKEY=votre_cle_api_mailersend
-   ```
-   > **Note**: Pour les variables JWT_SECRET et JWT_REFRESH_SECRET, générez des chaînes aléatoires sécurisées.
-   
-   > Pour obtenir une clé API MailerSend, créez un compte sur [MailerSend](https://www.mailersend.com/).
+CLOUDINARY_NAME=your_cloudinay_name
+CLOUDINARY_API_KEY=your_cloudinary_api_key
+CLOUDINARY_API_SECRET=your_cloudinary_api_secret
 
-   > Pour obtention de la clé API Cloudinary, créez un compte sur [Cloudinary](https://cloudinary.com/).
+PORT=3000
 
-## Structure du projet
+JWT_SECRET=your_very_secure_jwt_secret
+JWT_REFRESH_SECRET=your_very_secure_refresh_secret
+
+MAIL_APIKEY=your_mailersend_api_key
+```
+
+**Note:**
+- For `JWT_SECRET` and `JWT_REFRESH_SECRET`, generate secure random strings.
+- To get a MailerSend API key, create an account on [MailerSend](https://www.mailersend.com).
+- To obtain a Cloudinary API key, create an account on [Cloudinary](https://cloudinary.com).
+
+---
+
+## Project Structure
 
 ```
 src/
-├── @types/          # Types TypeScript
-├── controllers/     # Logique de traitement des requêtes
-├── database/        # Configuration de la base de données, modèles et associations Sequelize
-├── middlewares/     # Middlewares Express (authentification, etc.)
-├── routes/          # Définition des routes de l'API
-├── utils/           # Fonctions utilitaires
-├── validators/      # Schémas de validation (Joi)
-└── index.ts         # Point d'entrée de l'application
+├── @types/          # TypeScript types
+├── controllers/     # Request handling logic
+├── database/        # Database configuration, Sequelize models and associations
+├── middlewares/     # Express middlewares (authentication, etc.)
+├── routes/          # API route definitions
+├── utils/           # Utility functions
+├── validators/      # Validation schemas (Joi)
+└── index.ts         # Application entry point
 ```
 
-## Commandes disponibles
+---
 
-- `pnpm dev` : Lance le serveur en mode développement avec hot-reload
-- `pnpm build` : Compile le code TypeScript
-- `pnpm start` : Démarre le serveur en production (nécessite une compilation préalable)
-- `pnpm seed` : Remplit la base de données avec des données initiales
-- `pnpm format` : Vérifie le formatage du code avec Biome
-- `pnpm format:write` : Formate automatiquement le code avec Biome
-- `pnpm lint` : Analyse le code pour détecter les problèmes potentiels
+## Available Commands
 
-## Développement local
+- `pnpm dev`: Start the server in development mode with hot-reload  
+- `pnpm build`: Compile the TypeScript code  
+- `pnpm start`: Start the server in production mode (requires prior compilation)  
+- `pnpm seed`: Populate the database with initial data  
+- `pnpm format`: Check code formatting with Biome  
+- `pnpm format:write`: Automatically format the code with Biome  
+- `pnpm lint`: Analyze the code for potential issues
 
-### Avec Docker
+---
 
-1. Assurez-vous que Docker et Docker Compose sont installés et en cours d'exécution.
-2. Lancez la base de donnée :
-   ```bash
-   docker compose up -d
-   ```
-3. Vous pourriez ensuite lancé le projet avec 
-   ```bash
-   pnpm dev
-   ```
+## Local Development
 
-## Déploiement en production
+### With Docker
 
-Pour déployer l'application en production :
+Make sure Docker and Docker Compose are installed and running.
 
-1. Configurez correctement votre fichier `.env` avec les secrets de production.
-2. Utilisez Docker Compose pour le déploiement :
-   ```bash
-   docker compose -f docker-compose.prod.yaml up -d --build
-   ```
+Start the database:
+
+```bash
+docker compose up -d
+```
+
+Wait a few seconds for the database to be fully up, then run:
+
+```bash
+pnpm seed
+```
+
+This command will seed the database with initial data.
+
+You can then start the project with:
+
+```bash
+pnpm dev
+```
+
+## API Documentation
+
+This document describes the available endpoints for the Cinedelices backend API.
+
+| Method | Route | Description | Body / Query Params | Auth Required |
+|--------|-------|-------------|----------------------|----------------|
+| POST   | `/api/auth/login` | User login | `{ "email": "string", "password": "string" }` | ❌ |
+| POST   | `/api/auth/register` | Register a new user | `{ "username": "string", "email": "string", "password": "string" }` | ❌ |
+| POST   | `/api/auth/confirm` | Confirm verification code | `{ "email": "string", "code": number }` | ❌ |
+| GET    | `/api/auth/refresh` | Generate new access token from refresh token | - | ❌ |
+| GET    | `/api/auth/private` | Protected private route (JWT) | - | ✅ |
+| GET    | `/api/categories` | Retrieve all categories | - | ❌ |
+| GET    | `/api/medias` | Retrieve all medias with filters | - | ❌ |
+| GET    | `/api/medias/:id` | Retrieve a media by ID | - | ❌ |
+| GET    | `/api/medias/:id/recipes` | Retrieve recipes linked to a media | - | ❌ |
+| GET    | `/api/recipes` | List recipes with filters (title, ingredients...) | - | ❌ |
+| GET    | `/api/recipes/:id` | Retrieve a recipe by ID | - | ❌ |
+| POST   | `/api/recipes` | Create a recipe | `{ "name": "string", "description": "string", "mediaId": number, "categoryId": number, "steps": [...], "compositions": [...] }` | ✅ |
+| PUT    | `/api/recipes/:recipeId/coverImg` | Update cover image of a recipe | FormData: `coverImg` (file) | ✅ |
+| GET    | `/api/me` | Get info of the authenticated user | - | ✅ |
+
+**Legend:**
+- ✅ = Authentication required (JWT)
+- ❌ = No authentication required
