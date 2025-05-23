@@ -154,7 +154,7 @@ body {
 }
 
 /* Ingredient page */
-.ingredients-header {
+.data-header {
   display: flex;
   justify-content: end;
   align-items: center;
@@ -162,7 +162,7 @@ body {
   margin-bottom: 20px;
 }
 
-.create-ingredient-btn {
+.create-data-btn {
   background-color: #e59338;
   border: none;
   color: white;
@@ -177,18 +177,18 @@ body {
   transition: background 0.3s;
 }
 
-.create-ingredient-btn:hover {
+.create-data-btn:hover {
   /* biome-ignore lint/correctness/noUnknownFunction: <explanation> */
   background-color: darken(#e59338, 10%);
 }
 
-.ingredient-table {
+.data-table {
   width: 100%;
   border-collapse: collapse;
 }
 
-.ingredient-table th,
-.ingredient-table td {
+.data-table th,
+.data-table td {
   padding: 14px 10px;
   text-align: left;
   border-bottom: 1px solid #eee;
@@ -196,19 +196,19 @@ body {
   color: #333;
 }
 
-.ingredient-table td i {
+.data-table td i {
   cursor: pointer;
   color: #e59338;
   margin-right: 8px;
   transition: color 0.2s;
 }
 
-.ingredient-table td i:hover {
+.data-table td i:hover {
   color: #c46500;
 }
 
-.ingredient-table th:last-child,
-.ingredient-table td:last-child {
+.data-table th:last-child,
+.data-table td:last-child {
   text-align: right;
 }
 /* modal */
