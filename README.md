@@ -8,7 +8,7 @@
 
 Backend API and Back Office for the Cinedelices project, a platform dedicated to cinema and gastronomy.
 
-Frontend repo link: [https://github.com/Thomas-Gambin/Cinedelice-back](https://github.com/Thomas-Gambin/Cinedelice-back)
+Frontend repo link: [https://github.com/Thomas-Gambin/Cinedelice-front](https://github.com/Thomas-Gambin/Cinedelice-front)
 
 ---
 
@@ -124,7 +124,9 @@ pnpm dev
 ## Connection
 
 For use the back-office you can connect with this account :
+
 Email : john@doe.fr
+
 Password : johnEstVraimentUnSuperPseudo
 
 ## API Documentation
