@@ -118,7 +118,7 @@ const CreateMedias = async () => {
 		{ id: 1, title: "Ratatouille", coverImage: "https://picsum.photos/201", anecdote: "Un rat qui devient chef à Paris." },
 		{ id: 2, title: "Les Simpson", coverImage: "https://picsum.photos/207", anecdote: "Notre famille préféré." },
 	{ id: 3, title: "Friends", coverImage: "https://picsum.photos/208", anecdote: "Le meilleur groupe de pote." },
-	{ id: 4, title: "Mon voisin Totoro", coverImage: "https://picsum.photos/205", anecdote: "Le voisin de nos r^ves" },
+	{ id: 4, title: "Mon voisin Totoro", coverImage: "https://picsum.photos/205", anecdote: "Le voisin de nos rêves" },
 	{ id: 5, title: "Le Parrain", coverImage: "https://picsum.photos/204", anecdote: "Le mafieu un peu dangereu." },
 	{ id: 6, title: "Harry Potter", coverImage: "https://picsum.photos/206", anecdote: "Le sorcier presque parfait." },
 	{ id: 7, title: "Charlie et la chocolaterie", coverImage: "https://picsum.photos/209", anecdote: "Un univers remplie de douceurs... Et de chocolat" },
