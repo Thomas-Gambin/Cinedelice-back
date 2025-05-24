@@ -1,6 +1,6 @@
 # Cinedelices
 
-**Cinedelices** is a group capstone project completed at the end of our training program. Our mission was to create a website where users could browse and create recipes inspired by pop culture (movies, TV series, anime/manga, video games, literature).
+**Cinedelices** is a group project completed at the end of our training program. Our mission was to create a website wich users could browse and create recipes inspired by pop culture (movies, TV series, anime/manga, video games, literature).
 
 ---
 
@@ -17,9 +17,9 @@ Frontend repo link: [https://github.com/Thomas-Gambin/Cinedelice-front](https://
 - Node.js (recommended version: >=18.x)  
 - PNPM (version 10.7.1 or higher)  
 - Docker and Docker Compose (for development and production environments)  
-- MariaDB (if running locally without Docker)
-- Cloudinary account (if you want to add picture at your recipe)
-- Mailersend account (if you want to create account for testing the register/login method)
+- MariaDB (for BDD)
+- Cloudinary account (if you want to add picture for your recipe)
+- Mailersend account (if you want to create account to try the register method)
 
 ---
 
