@@ -121,6 +121,12 @@ You can then start the project with:
 pnpm dev
 ```
 
+## Connection
+
+For use the back-office you can connect with this account :
+Email : john@doe.fr
+Password : johnEstVraimentUnSuperPseudo
+
 ## API Documentation
 
 This document describes the available endpoints for the Cinedelices backend API.
