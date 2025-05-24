@@ -56,6 +56,8 @@ JWT_SECRET=your_very_secure_jwt_secret
 JWT_REFRESH_SECRET=your_very_secure_refresh_secret
 
 MAIL_APIKEY=your_mailersend_api_key
+MAIL_SMTP_TOKEN=your_mailersend_smtp_token
+MAIL_NAME=your_email_name
 ```
 
 **Note:**

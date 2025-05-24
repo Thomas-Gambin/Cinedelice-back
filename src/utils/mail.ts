@@ -6,8 +6,8 @@ const mailerSend = new MailerSend({
 });
 
 const sentFrom = new Sender(
-	"cinedelice@test-yxj6lj9x8zq4do2r.mlsender.net",
-	"Cinedelice",
+	dotenv.MAIL.SMTP.TOKEN,
+	dotenv.MAIL.NAME,
 );
 
 export { mailerSend, sentFrom };

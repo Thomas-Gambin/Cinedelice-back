@@ -25,5 +25,9 @@ export default {
 
 	MAIL: {
 		APIKEY: process.env.MAIL_APIKEY as string,
+		SMTP:{
+			TOKEN: process.env.MAIL_SMTP_TOKEN as string,
+		},
+		NAME: process.env.MAIL_NAME as string,
 	},
 };
