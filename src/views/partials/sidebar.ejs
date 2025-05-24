@@ -15,31 +15,53 @@
         <aside class="sidebar">
             <div class="admin-info">
                 <img src="/static/avatar.png" alt="avatar" />
-                <p>admin</p>
+                <p>
+                    <% if (admin) { %>
+                        <%= admin.username %>
+                            <% } else { %>
+                                Invité
+                                <% } %>
+                </p>
             </div>
+
             <nav class="nav">
-                <a href="/backoffice/dashboard"
-                    class="<%= currentPath.startsWith('/backoffice/dashboard') ? 'active' : '' %>">
-                    <i class="fa-solid fa-chart-line"></i> Dashboard
-                </a>
-                <a href="/backoffice/users" class="<%= currentPath.startsWith('/backoffice/users') ? 'active' : '' %>">
-                    <i class="fa-solid fa-users"></i> Utilisateurs
-                </a>
-                <a href="/backoffice/recipes"
-                    class="<%= currentPath.startsWith('/backoffice/recipes') ? 'active' : '' %>">
-                    <i class="fa-solid fa-file-lines"></i> Recettes
-                </a>
-                <a href="/backoffice/ingredients"
-                    class="<%= currentPath.startsWith('/backoffice/ingredients') ? 'active' : '' %>">
-                    <i class="fa-solid fa-carrot"></i> Ingrédients
-                </a>
-                <a href="/backoffice/medias"
-                    class="<%= currentPath.startsWith('/backoffice/medias') ? 'active' : '' %>">
-                    <i class="fa-solid fa-film"></i> Médias
-                </a>
-                <a href="/backoffice/categories"
-                    class="<%= currentPath.startsWith('/backoffice/categories') ? 'active' : '' %>">
-                    <i class="fa-solid fa-table-cells"></i> Catégories de recettes
-                </a>
+                <% if (admin) { %>
+                    <a href="/backoffice/dashboard"
+                        class="<%= currentPath.startsWith('/backoffice/dashboard') ? 'active' : '' %>">
+                        <i class="fa-solid fa-chart-line"></i> Dashboard
+                    </a>
+                    <a href="/backoffice/users"
+                        class="<%= currentPath.startsWith('/backoffice/users') ? 'active' : '' %>">
+                        <i class="fa-solid fa-users"></i> Utilisateurs
+                    </a>
+                    <a href="/backoffice/recipes"
+                        class="<%= currentPath.startsWith('/backoffice/recipes') ? 'active' : '' %>">
+                        <i class="fa-solid fa-file-lines"></i> Recettes
+                    </a>
+                    <a href="/backoffice/ingredients"
+                        class="<%= currentPath.startsWith('/backoffice/ingredients') ? 'active' : '' %>">
+                        <i class="fa-solid fa-carrot"></i> Ingrédients
+                    </a>
+                    <a href="/backoffice/medias"
+                        class="<%= currentPath.startsWith('/backoffice/medias') ? 'active' : '' %>">
+                        <i class="fa-solid fa-film"></i> Médias
+                    </a>
+                    <a href="/backoffice/categories"
+                        class="<%= currentPath.startsWith('/backoffice/categories') ? 'active' : '' %>">
+                        <i class="fa-solid fa-table-cells"></i> Catégories
+                    </a>
+                    <form action="/backoffice/logout" method="POST" class="sidebar-logout-form">
+                        <button type="submit" class="sidebar-btn logout-btn">
+                            <i class="fa-solid fa-right-from-bracket"></i> Déconnexion
+                        </button>
+                    </form>
+                    <% } else { %>
+                        <a href="/backoffice/login" class="sidebar-btn login-btn">
+                            <i class="fa-solid fa-right-to-bracket"></i> Connexion admin
+                        </a>
+                        <% } %>
             </nav>
+            <footer class="sidebar-footer">
+                <p>&copy; 2025 Thomas Gambin - Tous droits réservés</p>
+            </footer>
         </aside>

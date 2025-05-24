@@ -10,6 +10,7 @@ import DotenvSchema from "./validators/dotenvValidator";
 import cors from "cors";
 import { limiter } from "./middlewares/rateLimitValidator";
 import { isActive } from "./middlewares/backoffice/isActive";
+import cookieParser from "cookie-parser";
 
 // Validate the environment configuration
 const { error } = DotenvSchema.validate(process.env, {
@@ -37,7 +38,6 @@ app.use(
 		origin: "*",
 	}),
 );
-
 app.use(express.json());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -53,6 +53,14 @@ app.use(isActive);
 app.set("view engine", "ejs");
 app.set("views", "./src/views");
 app.use(express.static("public"));
+// Use cookie parser middleware to handle cookies
+app.use(cookieParser());
+// Use the backoffice router
+app.use((req, res, next) => {
+	res.locals.admin = req.user?.role === "admin" ? req.user : null;
+	res.locals.currentPath = req.path;
+	next();
+});
 app.use("/backoffice", backofficeRouter);
 
 // Use the joi validation for error

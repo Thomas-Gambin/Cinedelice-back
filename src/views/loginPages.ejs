@@ -1,0 +1,21 @@
+<%- include ('partials/sidebar') %>
+
+    <body>
+        <div class="admin-login-container">
+            <form action="/backoffice/login" method="POST" class="admin-login-form">
+                <h1>Connexion Administrateur</h1>
+
+                <% if (error) { %>
+                    <p class="error-message">
+                        <%= error %>
+                    </p>
+                    <% } %>
+
+                        <input type="email" name="email" placeholder="Email" required />
+                        <input type="password" name="password" placeholder="Mot de passe" required />
+                        <button type="submit">Se connecter</button>
+            </form>
+        </div>
+    </body>
+
+    </html>

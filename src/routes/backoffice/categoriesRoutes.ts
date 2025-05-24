@@ -1,7 +1,10 @@
 import express from "express";
 import categoryController from "../../controllers/backoffice/categoriesController";
+import { isAdmin } from "../../middlewares/backoffice/isAdmin";
 
 const categoryRouter = express.Router();
+
+categoryRouter.use(isAdmin);
 
 categoryRouter.get("/", categoryController.getAllCategories);
 categoryRouter.post("/create", categoryController.createCategory);
