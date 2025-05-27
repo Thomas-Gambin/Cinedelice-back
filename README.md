@@ -133,6 +133,7 @@ Password : johnEstVraimentUnSuperPseudo
 
 This document describes the available endpoints for the Cinedelices backend API.
 
+
 | Method | Route | Description | Body / Query Params | Auth Required |
 |--------|-------|-------------|----------------------|----------------|
 | POST   | `/api/auth/login` | User login | `{ "email": "string", "password": "string" }` | ❌ |
